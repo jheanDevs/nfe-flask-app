@@ -1,0 +1,4 @@
+flask
+pyngrok
+flask-cors
+gunicorn
