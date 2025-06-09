@@ -41,9 +41,28 @@ venv\Scripts\activate
 ```
 python -m flask run
 ```
-3. Acesse a aplicação em seu navegador:
-plaintext
+3. 3. Acesse a aplicação em seu navegador:
+```
+http://127.0.0.1:5000
+```
+## Uso
+1. Acesse a aplicação através do navegador
+2. Arraste um arquivo XML de NF-e para a área indicada ou clique para selecionar
+3. O sistema processará automaticamente o arquivo e exibirá:
+   - Valor total da nota
+   - Soma dos itens
+   - Comparação entre valores
+   - Lista detalhada dos itens
+## Contribuição
+1. Faça um Fork do projeto
+2. Crie uma branch para sua feature ( git checkout -b feature/AmazingFeature )
+3. Commit suas mudanças ( git commit -m 'Add some AmazingFeature' )
+4. Push para a branch ( git push origin feature/AmazingFeature )
+5. Abra um Pull Request
+## Licença
+Este projeto está sob a licença MIT. Veja o arquivo LICENSE para mais detalhes.
 
-Open Folder
+## Contato
+Jhean Devs - GitHub
 
-1
+Link do Projeto: https://github.com/jheanDevs/nfe-flask-app
