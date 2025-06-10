@@ -24,12 +24,18 @@ mobile_friendly_html = """ -->
         }
         .page-container {
             max-width: 960px;
-            margin: 2rem auto;
+            margin: 1rem auto;
             background: white;
-            padding: 2rem 3rem;
+            padding: 1rem;
             border-radius: 15px;
             box-shadow: 0 0 20px rgba(0,0,0,0.05);
             animation: fadeIn 0.8s ease-in;
+        }
+        @media (min-width: 768px) {
+            .page-container {
+                margin: 2rem auto;
+                padding: 2rem 3rem;
+            }
         }
         .btn-custom {
             background-color: #68c2a1;
@@ -40,8 +46,14 @@ mobile_friendly_html = """ -->
             background-color: #57a98c;
             transform: scale(1.03);
         }
+        .result-table {
+            width: 100%;
+            overflow-x: auto;
+            -webkit-overflow-scrolling: touch;
+        }
         .result-table th {
             background-color: #e0f1eb;
+            white-space: nowrap;
         }
         .result-table tbody tr:hover {
             background-color: #f0fdf7;
@@ -53,10 +65,16 @@ mobile_friendly_html = """ -->
         .drop-zone {
             border: 2px dashed #68c2a1;
             border-radius: 10px;
-            padding: 2rem;
+            padding: 1.5rem;
             text-align: center;
             cursor: pointer;
             transition: all 0.3s ease;
+            margin-bottom: 1rem;
+        }
+        @media (min-width: 768px) {
+            .drop-zone {
+                padding: 2rem;
+            }
         }
         .drop-zone:hover, .drop-zone.dragover {
             background-color: #f0fdf7;
@@ -67,8 +85,29 @@ mobile_friendly_html = """ -->
             color: #68c2a1;
             margin-bottom: 1rem;
         }
+        .drop-zone p {
+            margin: 0;
+            font-size: 0.9rem;
+        }
+        @media (min-width: 768px) {
+            .drop-zone p {
+                font-size: 1rem;
+            }
+        }
         #file-upload {
-            display: none;
+            position: absolute;
+            width: 1px;
+            height: 1px;
+            padding: 0;
+            margin: -1px;
+            overflow: hidden;
+            clip: rect(0,0,0,0);
+            border: 0;
+        }
+        .table-responsive {
+            margin-bottom: 1rem;
+            overflow-x: auto;
+            -webkit-overflow-scrolling: touch;
         }
         @keyframes fadeIn {
             from { opacity: 0; transform: translateY(10px); }
@@ -98,8 +137,8 @@ mobile_friendly_html = """ -->
         <div class="mb-3">
             <div class="drop-zone" id="drop-zone">
                 <i class="bi bi-cloud-upload"></i>
-                <p class="mb-0">Arraste e solte seu arquivo XML aqui<br>ou clique para selecionar</p>
-                <input type="file" name="xml_file" id="file-upload" class="form-control" required accept=".xml">
+                <p>Arraste e solte seu arquivo XML aqui<br>ou toque para selecionar</p>
+                <input type="file" name="xml_file" id="file-upload" accept=".xml" required>
             </div>
         </div>
     </form>
@@ -120,28 +159,30 @@ mobile_friendly_html = """ -->
             </div>
         {% endif %}
 
-        <table class="table result-table table-bordered mt-3 animate__animated animate__fadeIn">
-            <thead>
-                <tr>
-                    <th>Item</th>
-                    <th>Descrição</th>
-                    <th>Quantidade</th>
-                    <th>Valor Unitário</th>
-                    <th>Valor Total</th>
-                </tr>
-            </thead>
-            <tbody>
-                {% for item in resultado.itens %}
-                <tr>
-                    <td>{{ item.nItem }}</td>
-                    <td>{{ item.descricao }}</td>
-                    <td>{{ item.qCom }}</td>
-                    <td>R$ {{ item.valor_unitario }}</td>
-                    <td>R$ {{ item.valor_total }}</td>
-                </tr>
-                {% endfor %}
-            </tbody>
-        </table>
+        <div class="table-responsive">
+            <table class="table result-table table-bordered mt-3 animate__animated animate__fadeIn">
+                <thead>
+                    <tr>
+                        <th>Item</th>
+                        <th>Descrição</th>
+                        <th>Quantidade</th>
+                        <th>Valor Unitário</th>
+                        <th>Valor Total</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for item in resultado.itens %}
+                    <tr>
+                        <td>{{ item.nItem }}</td>
+                        <td>{{ item.descricao }}</td>
+                        <td>{{ item.qCom }}</td>
+                        <td>R$ {{ item.valor_unitario }}</td>
+                        <td>R$ {{ item.valor_total }}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
     {% endif %}
 </div>
 
@@ -161,7 +202,15 @@ mobile_friendly_html = """ -->
         }
     }
 
-    dropZone.addEventListener('click', () => fileUpload.click());
+    // Tratamento para dispositivos móveis
+    if ('ontouchstart' in window) {
+        dropZone.addEventListener('touchend', (e) => {
+            e.preventDefault();
+            fileUpload.click();
+        });
+    } else {
+        dropZone.addEventListener('click', () => fileUpload.click());
+    }
 
     dropZone.addEventListener('dragover', (e) => {
         e.preventDefault();
