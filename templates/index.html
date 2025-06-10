@@ -16,6 +16,7 @@ mobile_friendly_html = """ -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" rel="stylesheet">
     <style>
         body {
             background-color: #f5f8f7;
@@ -49,6 +50,26 @@ mobile_friendly_html = """ -->
         .result-table tbody tr:nth-child(odd) {
             background-color: #fafafa;
         }
+        .drop-zone {
+            border: 2px dashed #68c2a1;
+            border-radius: 10px;
+            padding: 2rem;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        .drop-zone:hover, .drop-zone.dragover {
+            background-color: #f0fdf7;
+            border-color: #57a98c;
+        }
+        .drop-zone i {
+            font-size: 2rem;
+            color: #68c2a1;
+            margin-bottom: 1rem;
+        }
+        #file-upload {
+            display: none;
+        }
         @keyframes fadeIn {
             from { opacity: 0; transform: translateY(10px); }
             to { opacity: 1; transform: translateY(0); }
@@ -75,32 +96,31 @@ mobile_friendly_html = """ -->
 
     <form method="post" enctype="multipart/form-data" class="mb-4" id="upload-form">
         <div class="mb-3">
-            <input type="file" name="xml_file" id="file-upload" class="form-control" required accept=".xml">
-        </div>
-        <div class="text-end">
-            <button type="submit" class="btn btn-custom">
-                <i class="bi bi-arrow-clockwise me-1"></i> Processar
-            </button>
+            <div class="drop-zone" id="drop-zone">
+                <i class="bi bi-cloud-upload"></i>
+                <p class="mb-0">Arraste e solte seu arquivo XML aqui<br>ou clique para selecionar</p>
+                <input type="file" name="xml_file" id="file-upload" class="form-control" required accept=".xml">
+            </div>
         </div>
     </form>
 
     {% if resultado %}
-        <div class="mb-3 fade-in">
+        <div class="mb-3 animate__animated animate__fadeIn">
             <strong>Valor Total da Nota (vNF):</strong> R$ {{ resultado.vnf }}<br>
             <strong>Soma dos Itens:</strong> R$ {{ resultado.total_geral }}
         </div>
 
         {% if resultado.bate %}
-            <div class="alert alert-success fade-in">
+            <div class="alert alert-success animate__animated animate__fadeIn">
                 <i class="bi bi-check-circle-fill me-1"></i> O total calculado bate com o valor da nota!
             </div>
         {% else %}
-            <div class="alert alert-warning fade-in">
+            <div class="alert alert-warning animate__animated animate__fadeIn">
                 <i class="bi bi-exclamation-triangle-fill me-1"></i> Diferença entre o total calculado e vNF: R$ {{ resultado.diferenca }}
             </div>
         {% endif %}
 
-        <table class="table result-table table-bordered mt-3 fade-in">
+        <table class="table result-table table-bordered mt-3 animate__animated animate__fadeIn">
             <thead>
                 <tr>
                     <th>Item</th>
@@ -126,10 +146,47 @@ mobile_friendly_html = """ -->
 </div>
 
 <script>
+    const dropZone = document.getElementById('drop-zone');
+    const fileUpload = document.getElementById('file-upload');
     const form = document.getElementById('upload-form');
+
+    function handleFileSelect(file) {
+        if (file && file.name.toLowerCase().endsWith('.xml')) {
+            const dataTransfer = new DataTransfer();
+            dataTransfer.items.add(file);
+            fileUpload.files = dataTransfer.files;
+            form.submit();
+        } else {
+            alert('Por favor, selecione apenas arquivos XML.');
+        }
+    }
+
+    dropZone.addEventListener('click', () => fileUpload.click());
+
+    dropZone.addEventListener('dragover', (e) => {
+        e.preventDefault();
+        dropZone.classList.add('dragover');
+    });
+
+    dropZone.addEventListener('dragleave', () => {
+        dropZone.classList.remove('dragover');
+    });
+
+    dropZone.addEventListener('drop', (e) => {
+        e.preventDefault();
+        dropZone.classList.remove('dragover');
+        const file = e.dataTransfer.files[0];
+        handleFileSelect(file);
+    });
+
+    fileUpload.addEventListener('change', (e) => {
+        const file = e.target.files[0];
+        handleFileSelect(file);
+    });
+
     form.addEventListener('submit', () => {
         const loading = document.createElement('div');
-        loading.className = 'alert alert-info mt-3 text-center fade-in';
+        loading.className = 'alert alert-info mt-3 text-center animate__animated animate__fadeIn';
         loading.innerHTML = '<i class="bi bi-hourglass-split me-1"></i> Processando XML...';
         form.insertAdjacentElement('afterend', loading);
     });
