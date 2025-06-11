@@ -145,6 +145,13 @@ mobile_friendly_html = """ -->
 
     {% if resultado %}
         <div class="mb-3 animate__animated animate__fadeIn">
+            <div class="card mb-3">
+                <div class="card-body">
+                    <h5 class="card-title"><i class="bi bi-building me-2"></i>Informações do Fornecedor</h5>
+                    <p class="card-text mb-1"><strong>Nome:</strong> {{ resultado.fornecedor.nome }}</p>
+                    <p class="card-text"><strong>CNPJ:</strong> {{ resultado.fornecedor.cnpj }}</p>
+                </div>
+            </div>
             <strong>Valor Total da Nota (vNF):</strong> R$ {{ resultado.vnf }}<br>
             <strong>Soma dos Itens:</strong> R$ {{ resultado.total_geral }}
         </div>

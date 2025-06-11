@@ -12,6 +12,11 @@ def index():
         tree = ET.parse(file)
         root = tree.getroot()
 
+        # Extrair informações do fornecedor
+        emit = root.find('.//nfe:emit', ns)
+        nome_fornecedor = emit.findtext('nfe:xNome', default='-', namespaces=ns)
+        cnpj_fornecedor = emit.findtext('nfe:CNPJ', default='-', namespaces=ns)
+
         itens = root.findall('.//nfe:det', ns)
         total = root.find('.//nfe:ICMSTot', ns)
         vnf = float(total.findtext('nfe:vNF', default='0', namespaces=ns))
@@ -46,6 +51,10 @@ def index():
 
         diferenca = abs(total_geral - vnf)
         resultado = {
+            "fornecedor": {
+                "nome": nome_fornecedor,
+                "cnpj": cnpj_fornecedor
+            },
             "vnf": f"{vnf:.2f}",
             "total_geral": f"{total_geral:.2f}",
             "diferenca": f"{diferenca:.2f}",
