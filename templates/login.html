@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Login - NF-e Web</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css" rel="stylesheet">
+    <style>
+        * {
+        box-sizing: border-box;
+        }
+
+        body {
+        margin: 0;
+        padding: 0;
+        font-family: 'Poppins', sans-serif;
+        background: linear-gradient(135deg, #68c2a1 0%, #4a90e2 100%);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        min-height: 100vh;
+        }
+
+        .login-container {
+        display: flex;
+        flex-direction: row;
+        background: #fff;
+        border-radius: 20px;
+        box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
+        overflow: hidden;
+        width: 100%;
+        max-width: 900px;
+        margin: 20px;
+        animation: fadeIn 1s ease;
+        }
+
+        .login-form-section {
+        flex: 1;
+        padding: 3rem;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        }
+
+        .login-image-section {
+        flex: 1;
+        background: linear-gradient(45deg, #68c2a1, #4a90e2);
+        color: white;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 2rem;
+        text-align: center;
+        }
+
+        .login-image-content {
+        animation: fadeInUp 1s ease;
+        }
+
+        .app-logo {
+        width: 70px;
+        height: 70px;
+        border-radius: 15px;
+        background: white;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin: 0 auto 1rem;
+        }
+
+        .app-logo i {
+        font-size: 32px;
+        color: #68c2a1;
+        }
+
+        h2 {
+        font-weight: 600;
+        margin-bottom: 10px;
+        color: #2c3e50;
+        }
+
+        p {
+        color: #636e72;
+        margin-bottom: 2rem;
+        }
+
+        .form-floating {
+        margin-bottom: 1rem;
+        }
+
+        .form-control {
+        border-radius: 12px;
+        height: 3.2rem;
+        padding: 0.75rem 1rem;
+        }
+
+        .btn-custom {
+        background: linear-gradient(45deg, #68c2a1, #4a90e2);
+        border: none;
+        border-radius: 12px;
+        color: white;
+        padding: 1rem;
+        font-weight: 600;
+        width: 100%;
+        margin-top: 1rem;
+        transition: 0.3s ease;
+        }
+
+        .btn-custom:hover {
+        background: #57a98c;
+        transform: scale(1.03);
+        }
+
+        .links {
+        text-align: center;
+        margin-top: 1rem;
+        font-size: 0.9rem;
+        }
+
+        .links a {
+        color: #4a90e2;
+        text-decoration: none;
+        margin: 0 0.5rem;
+        position: relative;
+        }
+
+        .links a::after {
+        content: '';
+        position: absolute;
+        width: 100%;
+        height: 2px;
+        bottom: -2px;
+        left: 0;
+        background-color: #4a90e2;
+        transform: scaleX(0);
+        transform-origin: bottom right;
+        transition: transform 0.3s ease;
+        }
+
+        .links a:hover::after {
+        transform: scaleX(1);
+        transform-origin: bottom left;
+        }
+
+        .alert {
+        margin-top: 1rem;
+        font-size: 0.9rem;
+        }
+
+        @media (max-width: 768px) {
+        .login-container {
+            flex-direction: column;
+            height: auto;
+        }
+
+        .login-form-section,
+        .login-image-section {
+            flex: none;
+            width: 100%;
+            padding: 2rem 1.5rem;
+        }
+
+        .login-image-section {
+            min-height: 200px;
+        }
+
+        .app-logo {
+            width: 60px;
+            height: 60px;
+        }
+
+        .app-logo i {
+            font-size: 28px;
+        }
+        }
+    </style>
+    </head>
+    <body>
+    <div class="login-container animate__animated animate__fadeIn">
+        <div class="login-form-section">
+        <div class="text-center mb-4">
+            <h2 class="animate__animated animate__fadeInUp">Bem-vindo de volta!</h2>
+            <p class="animate__animated animate__fadeInUp animate__delay-1s">Acesse sua conta para continuar gerenciando suas notas fiscais.</p>
+        </div>
+        <form method="POST" class="animate__animated animate__fadeInUp animate__delay-1s">
+            <div class="form-floating mb-3">
+            <input type="text" class="form-control" id="usuario" name="usuario" placeholder="Usuário ou email" required>
+            <label for="usuario">Usuário ou email</label>
+            </div>
+            <div class="form-floating mb-3">
+            <input type="password" class="form-control" id="senha" name="senha" placeholder="Senha" required>
+            <label for="senha">Senha</label>
+            </div>
+            <button type="submit" class="btn btn-custom">Entrar no sistema</button>
+            {% if erro %}
+            <div class="alert alert-danger text-center">{{ erro }}</div>
+            {% endif %}
+            <div class="links mt-3">
+            <a href="#">Esqueceu a senha?</a>
+            <span class="text-muted">•</span>
+            <a href="#">Criar conta</a>
+            </div>
+        </form>
+        </div>
+        <div class="login-image-section">
+        <div class="login-image-content">
+            <div class="app-logo mb-3">
+            <i class="bi bi-file-earmark-text-fill"></i>
+            </div>
+            <h3 class="mb-2">NF-e Web</h3>
+            <p class="text-white-50">Simplifique sua gestão de notas fiscais com praticidade e inteligência.</p>
+                </div>
+            </div>
+        </div>
+</body>
+</html>

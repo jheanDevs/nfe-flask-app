@@ -1,12 +1,3 @@
-<!-- from pathlib import Path
-import re
-
-# Caminho base após reset
-templates_dir = Path("/mnt/data/script-web-xml/templates")
-templates_dir.mkdir(parents=True, exist_ok=True)
-
-# HTML final com input visível e sem problemas em mobile
-mobile_friendly_html = """ -->
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
@@ -15,20 +6,34 @@ mobile_friendly_html = """ -->
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" rel="stylesheet">
     <style>
         body {
-            background-color: #f5f8f7;
-            font-family: 'Inter', sans-serif;
+            background: linear-gradient(135deg, #f7fcfa 0%, #e5f9f3 100%);
+            font-family: 'Poppins', sans-serif;
+            min-height: 100vh;
+        }
+        .navbar {
+            background: linear-gradient(to right, #68c2a1, #4a90e2);
+            padding: 1rem;
+            margin-bottom: 2rem;
+        }
+        .navbar-brand {
+            color: white !important;
+            font-weight: 600;
+            font-size: 1.4rem;
+        }
+        .navbar .btn-outline-light:hover {
+            background-color: rgba(255, 255, 255, 0.2);
         }
         .page-container {
             max-width: 960px;
             margin: 1rem auto;
             background: white;
-            padding: 1rem;
+            padding: 1.5rem;
             border-radius: 15px;
-            box-shadow: 0 0 20px rgba(0,0,0,0.05);
+            box-shadow: 0 8px 24px rgba(104, 194, 161, 0.15);
             animation: fadeIn 0.8s ease-in;
         }
         @media (min-width: 768px) {
@@ -38,80 +43,58 @@ mobile_friendly_html = """ -->
             }
         }
         .btn-custom {
-            background-color: #68c2a1;
+            background: linear-gradient(to right, #68c2a1, #4a90e2);
             color: white;
-            transition: background-color 0.3s ease, transform 0.2s ease;
+            border: none;
+            padding: 0.8rem 1.5rem;
+            font-weight: 500;
+            border-radius: 8px;
+            transition: all 0.3s ease;
         }
         .btn-custom:hover {
-            background-color: #57a98c;
-            transform: scale(1.03);
+            background: linear-gradient(to right, #57a98c, #357abd);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(104, 194, 161, 0.2);
+            color: white;
         }
         .result-table {
             width: 100%;
             overflow-x: auto;
-            -webkit-overflow-scrolling: touch;
+            border-radius: 10px;
+            box-shadow: 0 2px 12px rgba(0, 0, 0, 0.05);
         }
         .result-table th {
-            background-color: #e0f1eb;
+            background: linear-gradient(to right, #e0f1eb, #d4e7f7);
+            color: #2f6958;
+            font-weight: 600;
             white-space: nowrap;
+            padding: 1rem;
+        }
+        .result-table td {
+            padding: 1rem;
+            vertical-align: middle;
         }
         .result-table tbody tr:hover {
             background-color: #f0fdf7;
-            transition: background-color 0.2s ease;
-        }
-        .result-table tbody tr:nth-child(odd) {
-            background-color: #fafafa;
         }
         .drop-zone {
             border: 2px dashed #68c2a1;
-            border-radius: 10px;
-            padding: 1.5rem;
+            border-radius: 15px;
+            padding: 2rem;
             text-align: center;
             cursor: pointer;
-            transition: all 0.3s ease;
-            margin-bottom: 1rem;
+            background: linear-gradient(to bottom right, rgba(104, 194, 161, 0.05), rgba(74, 144, 226, 0.05));
         }
-        @media (min-width: 768px) {
-            .drop-zone {
-                padding: 2rem;
-            }
-        }
-        .drop-zone:hover, .drop-zone.dragover {
-            background-color: #f0fdf7;
-            border-color: #57a98c;
+        .drop-zone:hover {
+            background: linear-gradient(to bottom right, rgba(104, 194, 161, 0.1), rgba(74, 144, 226, 0.1));
+            border-color: #4a90e2;
+            transform: translateY(-2px);
         }
         .drop-zone i {
-            font-size: 2rem;
-            color: #68c2a1;
-            margin-bottom: 1rem;
-        }
-        .drop-zone p {
-            margin: 0;
-            font-size: 0.9rem;
-        }
-        @media (min-width: 768px) {
-            .drop-zone p {
-                font-size: 1rem;
-            }
-        }
-        #file-upload {
-            position: absolute;
-            width: 1px;
-            height: 1px;
-            padding: 0;
-            margin: -1px;
-            overflow: hidden;
-            clip: rect(0,0,0,0);
-            border: 0;
-        }
-        .table-responsive {
-            margin-bottom: 1rem;
-            overflow-x: auto;
-            -webkit-overflow-scrolling: touch;
-        }
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(10px); }
-            to { opacity: 1; transform: translateY(0); }
+            font-size: 2.5rem;
+            background: linear-gradient(to right, #68c2a1, #4a90e2);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
         }
         @keyframes fadeInUp {
             from { opacity: 0; transform: translateY(10px); }
@@ -121,53 +104,95 @@ mobile_friendly_html = """ -->
             opacity: 0;
             animation: fadeInUp 0.5s ease forwards;
         }
-        .result-table tbody tr:nth-child(1) { animation-delay: 0.1s; }
-        .result-table tbody tr:nth-child(2) { animation-delay: 0.2s; }
-        .result-table tbody tr:nth-child(3) { animation-delay: 0.3s; }
-        .result-table tbody tr:nth-child(4) { animation-delay: 0.4s; }
-        .result-table tbody tr:nth-child(5) { animation-delay: 0.5s; }
-        .result-table tbody tr:nth-child(6) { animation-delay: 0.6s; }
     </style>
 </head>
 <body>
-<div class="page-container">
-    <h2 class="mb-4"><i class="bi bi-file-earmark-text-fill text-success me-2"></i>Consulta de NF-e por XML</h2>
 
-    <form method="post" enctype="multipart/form-data" class="mb-4" id="upload-form">
-        <div class="mb-3">
-            <div class="drop-zone" id="drop-zone">
-                <i class="bi bi-cloud-upload"></i>
-                <p>Arraste e solte seu arquivo XML aqui<br>ou toque para selecionar</p>
-                <input type="file" name="xml_file" id="file-upload" accept=".xml" required>
-            </div>
+<nav class="navbar navbar-expand navbar-dark">
+    <div class="container">
+        <a class="navbar-brand" href="#">
+            <i class="bi bi-file-earmark-text me-2"></i>NF-e Web
+        </a>
+        <div class="d-flex align-items-center">
+            <span class="text-white me-3 d-flex align-items-center">
+                <i class="bi bi-person-circle me-2"></i>
+                <span class="fw-medium">{{ nome_usuario }}</span>
+            </span>
+            <a href="/logout" class="btn btn-outline-light d-flex align-items-center">
+                <i class="bi bi-box-arrow-right me-2"></i>Sair
+            </a>
         </div>
-    </form>
+    </div>
+</nav>
 
-    {% if resultado %}
-        <div class="mb-3 animate__animated animate__fadeIn">
-            <div class="card mb-3">
-                <div class="card-body">
-                    <h5 class="card-title"><i class="bi bi-building me-2"></i>Informações do Fornecedor</h5>
-                    <p class="card-text mb-1"><strong>Nome:</strong> {{ resultado.fornecedor.nome }}</p>
-                    <p class="card-text"><strong>CNPJ:</strong> {{ resultado.fornecedor.cnpj }}</p>
+<div class="container">
+    {% with messages = get_flashed_messages() %}
+        {% if messages %}
+            {% for message in messages %}
+            <div class="alert alert-info text-center animate__animated animate__fadeIn mb-4" role="alert">
+                <i class="bi bi-info-circle me-2"></i>{{ message }}
+            </div>
+            {% endfor %}
+        {% endif %}
+    {% endwith %}
+    
+    <div class="welcome-message text-center animate__animated animate__fadeIn mb-4">
+        <div class="d-inline-block bg-white p-4 rounded-3 shadow-sm">
+            <i class="bi bi-hand-wave-fill text-primary me-2 h4 mb-0"></i>
+            <h4 class="d-inline-block mb-0">Bem-vindo(a), <span class="text-primary">{{ nome_usuario }}</span>!</h4>
+            <p class="text-muted mb-0 mt-2">Pronto para processar seus arquivos XML.</p>
+        </div>
+    </div>
+
+    <div class="page-container animate__animated animate__fadeInUp">
+        <div class="d-flex justify-content-between align-items-center mb-4">
+            <h2 class="mb-0">
+                <i class="bi bi-file-earmark-text-fill text-success me-2"></i>Consulta de NF-e por XML
+            </h2>
+            {% if usuario_logado == "CH2155" %}
+            <a href="{{ url_for('admin') }}" class="btn btn-custom d-flex align-items-center">
+                <i class="bi bi-people-fill me-2"></i>Gerenciar Usuários
+            </a>
+            {% endif %}
+        </div>
+
+        <form method="post" enctype="multipart/form-data" class="mb-4" id="upload-form">
+            <div class="mb-3">
+                <div class="drop-zone" id="drop-zone">
+                    <i class="bi bi-cloud-arrow-up-fill"></i>
+                    <h5 class="mt-3 mb-2">Área de Upload</h5>
+                    <p>Arraste e solte seu arquivo XML aqui ou clique para selecionar</p>
+                    <input type="file" name="xml_file" id="file-upload" accept=".xml" required style="display: none;">
                 </div>
             </div>
+        </form>
+
+        {% if resultado %}
+        <div class="card mb-3">
+            <div class="card-body">
+                <h5 class="card-title"><i class="bi bi-building me-2"></i>Fornecedor</h5>
+                <p class="mb-1"><strong>Nome:</strong> {{ resultado.fornecedor.nome }}</p>
+                <p><strong>CNPJ:</strong> {{ resultado.fornecedor.cnpj }}</p>
+            </div>
+        </div>
+
+        <div class="mb-3">
             <strong>Valor Total da Nota (vNF):</strong> R$ {{ resultado.vnf }}<br>
             <strong>Soma dos Itens:</strong> R$ {{ resultado.total_geral }}
         </div>
 
         {% if resultado.bate %}
-            <div class="alert alert-success animate__animated animate__fadeIn">
-                <i class="bi bi-check-circle-fill me-1"></i> O total calculado bate com o valor da nota!
-            </div>
+        <div class="alert alert-success">
+            <i class="bi bi-check-circle-fill me-1"></i> O total calculado bate com o valor da nota!
+        </div>
         {% else %}
-            <div class="alert alert-warning animate__animated animate__fadeIn">
-                <i class="bi bi-exclamation-triangle-fill me-1"></i> Diferença entre o total calculado e vNF: R$ {{ resultado.diferenca }}
-            </div>
+        <div class="alert alert-warning">
+            <i class="bi bi-exclamation-triangle-fill me-1"></i> Diferença entre o total e o vNF: R$ {{ resultado.diferenca }}
+        </div>
         {% endif %}
 
         <div class="table-responsive">
-            <table class="table result-table table-bordered mt-3 animate__animated animate__fadeIn">
+            <table class="table result-table table-bordered mt-3">
                 <thead>
                     <tr>
                         <th>Item</th>
@@ -190,69 +215,35 @@ mobile_friendly_html = """ -->
                 </tbody>
             </table>
         </div>
-    {% endif %}
+        {% endif %}
+    </div>
 </div>
 
 <script>
     const dropZone = document.getElementById('drop-zone');
     const fileUpload = document.getElementById('file-upload');
-    const form = document.getElementById('upload-form');
-
-    function handleFileSelect(file) {
-        if (file && file.name.toLowerCase().endsWith('.xml')) {
-            const dataTransfer = new DataTransfer();
-            dataTransfer.items.add(file);
-            fileUpload.files = dataTransfer.files;
-            form.submit();
-        } else {
-            alert('Por favor, selecione apenas arquivos XML.');
-        }
-    }
-
-    // Tratamento para dispositivos móveis
-    if ('ontouchstart' in window) {
-        dropZone.addEventListener('touchend', (e) => {
-            e.preventDefault();
-            fileUpload.click();
-        });
-    } else {
-        dropZone.addEventListener('click', () => fileUpload.click());
-    }
-
-    dropZone.addEventListener('dragover', (e) => {
-        e.preventDefault();
-        dropZone.classList.add('dragover');
-    });
-
-    dropZone.addEventListener('dragleave', () => {
-        dropZone.classList.remove('dragover');
-    });
-
-    dropZone.addEventListener('drop', (e) => {
+    dropZone.addEventListener('click', () => fileUpload.click());
+    dropZone.addEventListener('dragover', e => { e.preventDefault(); dropZone.classList.add('dragover'); });
+    dropZone.addEventListener('dragleave', () => dropZone.classList.remove('dragover'));
+    dropZone.addEventListener('drop', e => {
         e.preventDefault();
         dropZone.classList.remove('dragover');
         const file = e.dataTransfer.files[0];
-        handleFileSelect(file);
+        if (file && file.name.toLowerCase().endsWith('.xml')) {
+            fileUpload.files = e.dataTransfer.files;
+            dropZone.querySelector('p').textContent = `Arquivo: ${file.name}`;
+            setTimeout(() => document.getElementById('upload-form').submit(), 500);
+        } else {
+            alert('Por favor, selecione um arquivo XML válido.');
+        }
     });
-
-    fileUpload.addEventListener('change', (e) => {
-        const file = e.target.files[0];
-        handleFileSelect(file);
-    });
-
-    form.addEventListener('submit', () => {
-        const loading = document.createElement('div');
-        loading.className = 'alert alert-info mt-3 text-center animate__animated animate__fadeIn';
-        loading.innerHTML = '<i class="bi bi-hourglass-split me-1"></i> Processando XML...';
-        form.insertAdjacentElement('afterend', loading);
+    fileUpload.addEventListener('change', () => {
+        if (fileUpload.files.length > 0) {
+            dropZone.querySelector('p').textContent = `Arquivo: ${fileUpload.files[0].name}`;
+            setTimeout(() => document.getElementById('upload-form').submit(), 500);
+        }
     });
 </script>
 
 </body>
 </html>
-<!-- """
-
-# Salvar o novo HTML
-mobile_html_path = templates_dir / "index.html"
-mobile_html_path.write_text(mobile_friendly_html, encoding="utf-8")
-mobile_html_path.name -->
