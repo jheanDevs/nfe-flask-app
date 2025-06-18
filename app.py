@@ -10,7 +10,7 @@ import os
 load_dotenv()
 
 app = Flask(__name__)
-app.secret_key = 'sua_chave_secreta_segura'
+app.secret_key = os.getenv("SECRET_KEY")
 
 # Conexão com MongoDB Atlas via .env
 mongo_uri = os.getenv("MONGO_URI")
