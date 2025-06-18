@@ -5,3 +5,4 @@ gunicorn
 pymongo
 python-dotenv
 pymongo[srv]
+fpdf
