@@ -1,0 +1,46 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="100%" height="100%">
+  <defs>
+    <linearGradient id="bgGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0d9488" />
+      <stop offset="100%" stop-color="#2563eb" />
+    </linearGradient>
+    <linearGradient id="docGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#ffffff" />
+      <stop offset="100%" stop-color="#f0fdf4" />
+    </linearGradient>
+    <linearGradient id="accentGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#10b981" />
+      <stop offset="100%" stop-color="#06b6d4" />
+    </linearGradient>
+    <filter id="shadow" x="-10%" y="-10%" width="120%" height="120%">
+      <feDropShadow dx="0" dy="8" stdDeviation="12" flood-color="#0d9488" flood-opacity="0.25" />
+    </filter>
+  </defs>
+
+  <!-- Background rounded squircle -->
+  <rect x="32" y="32" width="448" height="448" rx="96" fill="url(#bgGrad)" filter="url(#shadow)" />
+
+  <!-- Document Shape -->
+  <path d="M144 112 C144 96 156 84 172 84 L300 84 L368 152 L368 400 C368 416 356 428 340 428 L172 428 C156 428 144 416 144 400 Z" fill="url(#docGrad)" />
+
+  <!-- Folded Corner -->
+  <path d="M300 84 L368 152 L316 152 C307 152 300 145 300 136 Z" fill="#cbd5e1" opacity="0.8" />
+
+  <!-- XML Code Brackets & Checkmark Emblem -->
+  <!-- Left Angle Bracket '<' -->
+  <path d="M184 210 L212 188 L212 202 L196 214 L212 226 L212 240 Z" fill="#0d9488" />
+
+  <!-- Right Angle Bracket '>' -->
+  <path d="M328 210 L300 188 L300 202 L316 214 L300 226 L300 240 Z" fill="#0d9488" />
+
+  <!-- Center Slash '/' -->
+  <path d="M264 184 L276 184 L248 244 L236 244 Z" fill="#2563eb" />
+
+  <!-- Receipt Lines / Bars -->
+  <rect x="184" y="272" width="144" height="12" rx="6" fill="#cbd5e1" />
+  <rect x="184" y="304" width="104" height="12" rx="6" fill="#cbd5e1" />
+
+  <!-- Green Check Badge -->
+  <circle cx="340" cy="340" r="48" fill="url(#accentGrad)" />
+  <path d="M320 340 L332 352 L360 324" fill="none" stroke="#ffffff" stroke-width="8" stroke-linecap="round" stroke-linejoin="round" />
+</svg>
