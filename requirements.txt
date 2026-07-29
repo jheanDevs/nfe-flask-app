@@ -1,8 +1,0 @@
-flask
-pyngrok
-flask-cors
-gunicorn
-pymongo
-python-dotenv
-pymongo[srv]
-fpdf
